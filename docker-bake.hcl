@@ -5,9 +5,13 @@ group "default" {
 }
 
 target "bird" {
+  name = "bird-${replace(version, ".", "-")}"
   dockerfile = "./images/bird.Dockerfile"
-  tags = [ "ghcr.io/clementd64/bird:v3.1.0" ]
+  matrix = {
+    version = ["v2.17.1", "v3.1.0"]
+  }
+  tags = [ "ghcr.io/clementd64/bird:${version}" ]
   contexts = {
-    "fetch" = "https://gitlab.nic.cz/labs/bird/-/archive/v3.1.0/bird-v3.1.0.tar.gz"
+    "fetch" = "https://gitlab.nic.cz/labs/bird/-/archive/${version}/bird-${version}.tar.gz"
   }
 }
