@@ -23,6 +23,7 @@ RUN --network=none <<-EOF
 EOF
 
 FROM stagex/core-filesystem AS package
+USER root:root
 COPY --from=build /rootfs/ /
 ENTRYPOINT [ "bird" ]
 CMD [ "-f" ]
