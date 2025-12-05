@@ -1,8 +1,6 @@
 group "default" {
   targets = [
-    "bird",
     "fex",
-    "krakend",
   ]
 }
 
