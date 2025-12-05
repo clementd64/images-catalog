@@ -1,6 +1,7 @@
 group "default" {
   targets = [
     "bird",
+    "fex",
     "krakend",
   ]
 }
@@ -15,6 +16,19 @@ target "bird" {
   contexts = {
     "fetch" = "https://gitlab.nic.cz/labs/bird/-/archive/${version}/bird-${version}.tar.gz"
   }
+}
+
+target "fex" {
+  name = "fex"
+  dockerfile = "./images/fex.Dockerfile"
+  matrix = {
+    version = ["2511"]
+  }
+  tags = [ "ghcr.io/clementd64/pkg/fex:${version}" ]
+  contexts = {
+    fetch = "https://github.com/FEX-Emu/FEX.git#FEX-${version}"
+  }
+  platforms = [ "linux/arm64" ]
 }
 
 target "krakend" {
