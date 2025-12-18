@@ -1,7 +1,19 @@
 group "default" {
   targets = [
-    "fex",
+    "patroni",
   ]
+}
+
+target "patroni" {
+  name = "patroni-${replace(version, ".", "-")}"
+  dockerfile = "images/patroni.Dockerfile"
+  matrix = {
+    version = [ "18" ]
+  }
+  tags = [ "ghcr.io/clementd64/pkg/patroni:${version}" ]
+  contexts = {
+    "postgres:alpine" = "docker-image://postgres:${version}-alpine"
+  }
 }
 
 target "bird" {
